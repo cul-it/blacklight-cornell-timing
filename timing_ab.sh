@@ -14,6 +14,13 @@ targets=(
   "newcatalog.library.cornell.edu/catalog/6885529"
   )
 dtime=`date +"%F.%T"`
+BASEDIR=$(dirname "$0")
+BASENAME=`basename "$0"`
+TARGETDIR="$BASEDIR/logs"
+TARGETFILE="$TARGETDIR/$BASENAME.csv"
+[ -d "$TARGETDIR" ] || mkdir -p "$TARGETDIR"
+[ -f $"TARGETFILE" ] || echo "min,mean,standard_deviation,median,max,timestamp,site" > "$TARGETFILE"
+
 for site in "${targets[@]}"
 do
   result=$(ab -n 5 "https://${site}" | grep 'Total: ' | sed -e "s/Total: //g")
