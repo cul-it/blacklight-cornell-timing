@@ -24,7 +24,6 @@ TARGETFILE="$TARGETDIR/$BASENAME.csv"
 for site in "${targets[@]}"
 do
   result=$(ab -n 3 "https://${site}" | grep 'Total: ' | sed -E "s/Total:[ ]+//g")
-  echo "result: $result"
   result="$result $dtime $site"
   result=$(echo "$result" | sed -E "s|[ ]+|,|g")
   echo $result >> "$TARGETFILE"
