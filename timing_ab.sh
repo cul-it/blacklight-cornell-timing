@@ -19,13 +19,13 @@ BASENAME=`basename "$0"`
 TARGETDIR="$BASEDIR/logs"
 TARGETFILE="$TARGETDIR/$BASENAME.csv"
 [ -d "$TARGETDIR" ] || mkdir -p "$TARGETDIR"
-[ -f $"TARGETFILE" ] || echo "min,mean,standard_deviation,median,max,timestamp,site" > "$TARGETFILE"
+[ -f "$TARGETFILE" ] || echo "min,mean,standard_deviation,median,max,timestamp,site" > "$TARGETFILE"
 
 for site in "${targets[@]}"
 do
-  result=$(ab -n 1 "https://${site}" | grep 'Total: ' | sed -E "s/Total:[: :]+//g")
+  result=$(ab -n 1 "https://${site}" | grep 'Total: ' | sed -E "s/Total:[ ]+//g")
   echo "result: $result"
   result="$result $dtime $site"
-  result=$(echo "$result" | sed -E "s|[: :]+|,|g")
+  result=$(echo "$result" | sed -E "s|[ ]+|,|g")
   echo $result >> "$TARGETFILE"
 done
