@@ -12,13 +12,13 @@ targets=(
   "newcatalog.library.cornell.edu/catalog?utf8=%E2%9C%93&q=book+of+knots&search_field=all_fields"
   "newcatalog.library.cornell.edu/catalog/6885529"
   )
-dtime=`date +"%F.%T"`
+dtime=`date +"%F %T"`
 BASEDIR=$(dirname "$0")
 BASENAME=`basename "$0"`
 TARGETDIR="$BASEDIR/logs"
 TARGETFILE="$TARGETDIR/$BASENAME.csv"
 [ -d "$TARGETDIR" ] || mkdir -p "$TARGETDIR"
-[ -f "$TARGETFILE" ] || echo "min,mean,standard_deviation,median,max,timestamp,site" > "$TARGETFILE"
+[ -f "$TARGETFILE" ] || echo "min,mean,standard_deviation,median,max,date,time,site" > "$TARGETFILE"
 
 for site in "${targets[@]}"
 do
